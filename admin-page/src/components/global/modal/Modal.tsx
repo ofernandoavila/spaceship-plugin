@@ -22,6 +22,7 @@ export default function Modal() {
                 setAnimacao('');
                 break;
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [animationState]);
 
     if (!isModalOpen) return <></>;

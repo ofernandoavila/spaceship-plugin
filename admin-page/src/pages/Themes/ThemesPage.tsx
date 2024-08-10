@@ -19,6 +19,7 @@ export default function ThemesPage() {
 
     useEffect(() => {
         fetchAPI();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
