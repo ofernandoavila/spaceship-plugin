@@ -1,0 +1,16 @@
+{
+    "name": "ofernandoavila/spaceship_plugin",
+    "description": "Wordpress plugin created to add features to posts.",
+    "autoload": {
+        "psr-4": {
+            "ofernandoavila\\SpaceshipPlugin\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Fernando Avila",
+            "email": "fernandoavilajunior@gmail.com"
+        }
+    ],
+    "require": {}
+}

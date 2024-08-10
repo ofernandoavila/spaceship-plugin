@@ -1,0 +1,11 @@
+.color-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .color-sample {
+        width: 16px;
+        height: 16px;
+        border-radius: 100px;
+    }
+}
