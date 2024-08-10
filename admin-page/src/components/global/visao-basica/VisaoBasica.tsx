@@ -15,7 +15,10 @@ export default function VisaoBasica({ children, menuAtivo }: IVisaoBasicaProps) 
         <>
             <header>
                 <div className="container">
-                    <h1>Spaceship Plugin</h1>
+                    <div className="header-title">
+                        <h1>Spaceship Plugin</h1>
+                        <small>version { process.env.REACT_APP_VERSION }</small>
+                    </div>
                     <ul className="menu-nav">
                         <li onClick={() => navigate('/')} className={ menuAtivo ? menuAtivo === 'Themes' ? 'ativo' : '' : '' }>Themes</li>
                         <li onClick={() => navigate('/colors')} className={ menuAtivo ? menuAtivo === 'Colors' ? 'ativo' : '' : '' }>Colors</li>
