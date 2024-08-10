@@ -58,12 +58,16 @@ function SpaceshipPlugin_RenderPage() {
 }
 
 function SpaceshipPlugin_Enqueue_Scripts($hook) {
+    $SpaceshipPluginPageScriptPath = "main.js";
+
+    SpaceshipPlugin_ReplaceAdminPageBaseURL($SpaceshipPluginPageScriptPath);
+
     if($hook == "toplevel_page_spaceship-plugin-page") {
-        wp_enqueue_script('spaceship-plugin-page-script', plugins_url('assets/js/main.14d76451.js', __FILE__), array(), null, true);
+        wp_enqueue_script('spaceship-plugin-page-script', plugins_url("assets/js/$SpaceshipPluginPageScriptPath", __FILE__), array(), null, true);
     }
     
     if($hook == "toplevel_page_spaceship-plugin-page" || $hook == 'post.php') {
-        wp_enqueue_style('spaceship-plugin-page-style', plugins_url('assets/css/main.81174f89.css', __FILE__));
+        wp_enqueue_style('spaceship-plugin-page-style', plugins_url('assets/css/main.css', __FILE__));
     }
     
     if($hook == 'post.php') {
@@ -141,6 +145,7 @@ add_action('save_post', 'SpaceshipPlugin_Metabox_Save');
 
 #region API REST
 
+
 // Adiciona o tema selecionado ao JSON de resposta da API REST
 function SSP_add_theme_to_rest_api($response, $post, $context) {
     $themeService = new ThemeService();
@@ -160,3 +165,13 @@ function ssp_register_api_routes() {
 add_action('rest_api_init', 'ssp_register_api_routes');
 
 #endregion
+
+
+function SpaceshipPlugin_ReplaceAdminPageBaseURL($file_name) {
+    $file_path = WP_PLUGIN_DIR . "/spaceship-plugin/assets/js/$file_name";
+    $content = file_get_contents($file_path);
+    $pattern = sprintf('#{%s}#', 'BASE_URL');
+    $content = str_replace($pattern, get_site_url(), $content);
+
+    file_put_contents($file_path, $content);
+}

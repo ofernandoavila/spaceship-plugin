@@ -1,0 +1,62 @@
+name: Release
+
+on:
+    workflow_dispatch:
+
+jobs:
+    Build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v2
+              with:
+                  node-version: "21"
+
+            - name: Install dependencies
+              run: npm install
+
+            - name: Build
+              run: npm run build
+
+            - name: Preparando artefato
+              run: |
+                mkdir -p artifact
+                cp -r ./assets ./artifact
+                cp -r ./src ./artifact
+                cp -r ./vendor ./artifact
+                cp -r composer.json ./artifact
+                cp -r spaceship-plugin.php ./artifact
+
+            - name: Salvando artefato
+              uses: actions/upload-artifact@v4
+              with:
+                name: spaceship-plugin
+                path: artifact
+
+    Staging:
+        runs-on: ubuntu-latest
+        environment:
+            name: PRD
+            url: ${{ vars.BASE_URL }}
+            
+        needs: Build
+        steps:
+            - name: Download artifact
+              uses: actions/download-artifact@v4
+              with:
+                name: spaceship-plugin
+                path: ./artifact
+
+            - name: Deploy
+              uses: easingthemes/ssh-deploy@main
+              with:
+                SSH_PRIVATE_KEY: ${{ secrets.REMOTE_SSH_KEY }}
+                ARGS: "-rlgoDzvc --delete --exclude={'.htaccess'}"
+                REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+                REMOTE_USER: ${{ secrets.REMOTE_USER }}
+                SOURCE: "artifact/"
+                TARGET: ${{ secrets.REMOTE_TARGET }}
