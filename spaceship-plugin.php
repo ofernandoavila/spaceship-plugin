@@ -107,7 +107,7 @@ function SpaceshipPlugin_AddMetaboxField($post) {
     ?>
     <div class="spaceship-picker">
         <div class="spaceship-select" onclick="SSP_SpaceshipPicker_ToggleList()">
-            <input type="hidden" name="spaceship_plugin_value" id="spaceship_plugin_value" value="0" />
+            <input type="hidden" name="spaceship_plugin_value" id="spaceship_plugin_value" value="<?= $selected_theme->id ?>" />
             <div class="spaceship-color-sample" style="background-color: <?= $selected_theme->color->value ?>"></div>
             <span class="spaceship-name"><?= $selected_theme->name ?></span>
         </div>
