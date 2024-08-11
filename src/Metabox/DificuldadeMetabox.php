@@ -2,7 +2,9 @@
 
 namespace ofernandoavila\SpaceshipPlugin\Metabox;
 
-class DificuldadeMetabox extends Metabox {
+use ofernandoavila\SpaceshipPlugin\Interface\IAddOnPostResponse;
+
+class DificuldadeMetabox extends Metabox implements IAddOnPostResponse {
 
     public function __construct()
     {
@@ -31,5 +33,13 @@ class DificuldadeMetabox extends Metabox {
                 )
             );
         }
+    }
+
+    public function addToPostResponse($response, $post, $context) : mixed {
+        $theme = get_post_meta($post->ID, $this->metaboxId, true);
+        if ($theme) {
+            $response->data['dificuldade'] = $theme;
+        }
+        return $response;
     }
 }

@@ -21,6 +21,7 @@ class Router {
             register_rest_route("$this->endpoint/$this->version", $rota['route'], array(
                 'methods'  => $rota['method'],
                 'callback' => $rota['callback'],
+                'permission_callback' => function() { return ''; }
             ));
         }
     }

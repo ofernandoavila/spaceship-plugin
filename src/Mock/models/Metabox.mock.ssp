@@ -2,7 +2,7 @@
 
 namespace ofernandoavila\SpaceshipPlugin\Metabox;
 
-class #{NAME}#Metabox extends Metabox {
+class #{NAME}#Metabox extends Metabox implements IAddOnPostResponse {
 
     public function __construct()
     {
@@ -31,5 +31,13 @@ class #{NAME}#Metabox extends Metabox {
                 )
             );
         }
+    }
+
+    public function addToPostResponse($response, $post, $context) : mixed {
+        $data = get_post_meta($post->ID, $this->metaboxId, true);
+        if ($data) {
+            $response->data['#{NAME_SIMPLE}#'] = $data;
+        }
+        return $response;
     }
 }
