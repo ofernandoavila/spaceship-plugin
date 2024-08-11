@@ -3,5 +3,5 @@
 namespace ofernandoavila\SpaceshipPlugin\Interface;
 
 interface IAddOnPostResponse {
-    public function addToPostResponse($response, $post, $context): void;
+    public function addToPostResponse($response, $post, $context): mixed;
 }
