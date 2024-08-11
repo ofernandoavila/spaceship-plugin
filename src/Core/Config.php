@@ -1,0 +1,23 @@
+<?php
+
+namespace ofernandoavila\SpaceshipPlugin\Core;
+
+use ofernandoavila\SpaceshipPlugin\Metabox\Metabox;
+use ofernandoavila\SpaceshipPlugin\Metabox\ThemeMetabox;
+use ofernandoavila\SpaceshipPlugin\Service\ColorService;
+use ofernandoavila\SpaceshipPlugin\Service\ThemeService;
+
+class Config {
+    public static function GetServices() {
+        return [
+            ColorService::class,
+            ThemeService::class,
+        ];
+    }
+    
+    public static function GetMetaboxes() {
+        return [
+            ThemeMetabox::class
+        ];
+    }
+}
