@@ -2,6 +2,7 @@
 
 namespace ofernandoavila\SpaceshipPlugin\Core;
 
+use ofernandoavila\SpaceshipPlugin\Command\Command;
 use ofernandoavila\SpaceshipPlugin\Controller\ColorController;
 use ofernandoavila\SpaceshipPlugin\Controller\ThemeController;
 use ofernandoavila\SpaceshipPlugin\Interface\IAddOnPostResponse;
@@ -11,6 +12,83 @@ use WP_REST_Request;
 use WP_REST_Response;
 
 class Core {
+    // trigger function arguments
+    public function cli($arguments) {
+        $arguments = $this->extractCommand($arguments);
+
+        $controller = new Command();
+        $commands = Config::GetCommands();
+
+        if($arguments['trigger'] == '') {
+            return $controller->index([]);
+        }
+
+        foreach($commands as $command) {
+            $instance = new $command();
+
+            if($arguments['trigger'] == $instance->trigger) {
+                $controller = $instance;
+                break;
+            }
+        }
+
+        return $controller->index($arguments);
+    }
+
+    private function extractCommand($args) {
+        array_shift($args);
+
+        $command = [];
+        $command['trigger'] = '';
+        $command['function'] = '';
+        $command['arguments'] = $args;        
+
+        if(sizeof($args) > 0) {
+            $trigger = explode(':', $args[0]);
+
+            if(sizeof($trigger) == 2) {
+                $command['trigger'] = $trigger[0];
+                $command['function'] = $trigger[1];
+                
+                array_shift($args);
+            } else {
+                $command['trigger'] = $args[0];
+            }
+
+            $command['arguments'] = $args;
+        }
+
+        if(!isset($command['function'])) {
+            if(sizeof($args) > 0) {
+                $command['function'] = $args[0];
+                array_shift($args);
+                $command['arguments'] = $args;
+            }
+            
+            if(sizeof($args) > 0) {
+                $command['function'] = $args[0];
+                array_shift($args);
+                $command['arguments'] = $args;
+            }
+        }
+        
+        $output = [];
+        $teste = $args;
+
+        for($i = 0; $i < sizeof($teste); $i++) {
+            if(strpos($teste[$i], '--') === 0) {
+                $output[str_replace('--', '', $teste[$i])] = $teste[$i + 1];
+                array_shift($teste);
+            } else {
+                $output[] = $teste[$i];
+            }
+        }
+
+        $command['arguments'] = $output;
+        
+        return $command;
+    }
+
     public function init() {
         register_activation_hook(__FILE__, fn() => $this->install());
         register_deactivation_hook(__FILE__, fn() => $this->uninstall());

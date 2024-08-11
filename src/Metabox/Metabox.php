@@ -6,9 +6,11 @@ class Metabox {
 
     public string $id;
     public string $title;
+    public string $valueId;
     public string $type = 'post';
     public string $context = 'side';
     public string $priority = 'low';
+    public string $metaboxId;
 
     public function OnCreateMetaboxField($post) {
         throw new \Exception("Not implemented 'OnCreateMetaboxField' on Metabox class");

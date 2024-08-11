@@ -1,0 +1,17 @@
+<?php
+
+namespace ofernandoavila\SpaceshipPlugin\Controller;
+
+use ofernandoavila\SpaceshipPlugin\Service\#{NAME}#Service;
+
+use WP_REST_Request;
+
+class #{NAME}#Controller extends Controller
+{
+    private #{NAME}#Service $service;
+
+    public function __construct()
+    {
+        $this->service = new #{NAME}#Service();
+    }
+}

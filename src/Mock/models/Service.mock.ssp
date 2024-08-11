@@ -1,0 +1,23 @@
+<?php
+
+namespace ofernandoavila\SpaceshipPlugin\Service;
+
+use ofernandoavila\SpaceshipPlugin\Model\#{NAME}#Model;
+use ofernandoavila\SpaceshipPlugin\Repository\#{NAME}#Repository;
+
+class #{NAME}#Service extends Service {
+    public #{NAME}#Repository $repository;
+
+    public function __construct()
+    {
+        $this->repository = new #{NAME}#Repository();
+    }
+
+    public function install() {
+        return $this->repository->install();
+    }
+    
+    public function uninstall() {
+        return $this->repository->uninstall();
+    }
+}

@@ -1,0 +1,29 @@
+<?php
+
+namespace ofernandoavila\SpaceshipPlugin\Repository;
+
+use ofernandoavila\SpaceshipPlugin\Model\#{NAME}#Model;
+
+class #{NAME}#Repository extends Repository
+{
+    public function __construct()
+    {
+        $this->table_name = #{NAME}#Model::GetTableName();
+    }
+
+    public function install()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS $this->table_name  (
+                    id int NOT NULL AUTO_INCREMENT,
+                    name varchar(255) NOT NULL,
+                    PRIMARY KEY (id)
+                )";
+
+        return $this->executeQuery($sql);
+    }
+
+    public function uninstall()
+    {
+        return $this->executeQuery("drop table $this->table_name");
+    }
+}

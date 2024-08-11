@@ -1,0 +1,21 @@
+<?php
+
+namespace ofernandoavila\SpaceshipPlugin\Model;
+
+class #{NAME}#Model extends Model {
+
+    public static string $model_id = 'spaceship_#{PLURAL_NAME}#';
+
+    public function __construct()
+    {
+        global $wpdb;
+        
+        $this->table_name = $wpdb->prefix . self::$model_id;
+    }
+    
+    public static function GetTableName() : string {
+        global $wpdb;
+        
+        return $wpdb->prefix . self::$model_id;
+    }
+}
