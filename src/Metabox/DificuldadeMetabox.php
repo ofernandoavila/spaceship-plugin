@@ -16,8 +16,15 @@ class DificuldadeMetabox extends Metabox implements IAddOnPostResponse {
 
     public function OnCreateMetaboxField($post) {
         // To-Do: Implement on create metabox field
-        $selected_theme = get_post_meta($post->ID, $this->metaboxId, true);
-        echo '<input type="text" name="' . $this->valueId . '" id="' . $this->valueId . '" value="' . $selected_theme .'" />';
+        $selected = get_post_meta($post->ID, $this->metaboxId, true);
+        ?>
+        <div class="SSP_SpaceshipRating">
+            <input type="hidden" name="<?= $this->valueId ?>" id="<?= $this->valueId ?>" value="<?= $selected ?>">
+            <i data-value="1" class="fa-regular fa-star"></i>
+            <i data-value="2" class="fa-regular fa-star"></i>
+            <i data-value="3" class="fa-regular fa-star"></i>
+        </div>
+        <?php
     }
 
     public function OnSaveMetabox($post_id) {

@@ -161,6 +161,8 @@ class Core {
     }
 
     public function loadAssets($hook) {
+        wp_enqueue_style('font-awesome-style', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css');
+        
         $file_js = "main.js";
 
         $this->__replaceEnvironmentsVariables($file_js);
@@ -175,6 +177,7 @@ class Core {
         
         if($hook == 'post.php') {
             wp_enqueue_script('spaceship-plugin-admin-script', plugins_url('../../assets/js/spaceship-plugin.js', __FILE__), array(), null, true);
+            wp_enqueue_style('spaceship-plugin-admin-style', plugins_url('../../assets/css/spaceship-plugin.css', __FILE__));
         }
     }
 

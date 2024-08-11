@@ -14,8 +14,8 @@ class #{NAME}#Metabox extends Metabox implements IAddOnPostResponse {
 
     public function OnCreateMetaboxField($post) {
         // To-Do: Implement on create metabox field
-        $selected_theme = get_post_meta($post->ID, $this->metaboxId, true);
-        echo '<input type="text" name="' . $this->valueId . '" id="' . $this->valueId . '" value="' . $selected_theme .'" />';
+        $selected = get_post_meta($post->ID, $this->metaboxId, true);
+        echo '<input type="text" name="' . $this->valueId . '" id="' . $this->valueId . '" value="' . $selected .'" />';
     }
 
     public function OnSaveMetabox($post_id) {
