@@ -22,7 +22,7 @@ class Metabox {
         return add_meta_box(
             $this->id,          // ID da meta box
             $this->title,                           // Título da meta box
-            fn($post_id) => $this->OnSaveMetabox($post_id),          // Função de callback
+            fn($post) => $this->OnCreateMetaboxField($post),          // Função de callback
             $this->type,                                     // Tipo de tela (post)
             $this->context,                                     // Contexto (lateral)
             $this->priority                                      // Prioridade

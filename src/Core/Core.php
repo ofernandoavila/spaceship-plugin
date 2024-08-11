@@ -88,15 +88,15 @@ class Core {
         $this->__replaceEnvironmentsVariables($file_js);
 
         if($hook == "toplevel_page_spaceship-plugin-page") {
-            wp_enqueue_script('spaceship-plugin-page-script', plugins_url("assets/js/$file_js", __FILE__), array(), null, true);
+            wp_enqueue_script('spaceship-plugin-page-script', plugins_url("../../assets/js/$file_js", __FILE__), array(), null, true);
         }
         
         if($hook == "toplevel_page_spaceship-plugin-page" || $hook == 'post.php') {
-            wp_enqueue_style('spaceship-plugin-page-style', plugins_url('assets/css/main.css', __FILE__));
+            wp_enqueue_style('spaceship-plugin-page-style', plugins_url('../../assets/css/main.css', __FILE__));
         }
         
         if($hook == 'post.php') {
-            wp_enqueue_script('spaceship-plugin-admin-script', plugins_url('assets/js/spaceship-plugin.js', __FILE__), array(), null, true);
+            wp_enqueue_script('spaceship-plugin-admin-script', plugins_url('../../assets/js/spaceship-plugin.js', __FILE__), array(), null, true);
         }
     }
 
@@ -144,7 +144,7 @@ class Core {
 
             foreach($interfaces as $interface) {
                 if($interface == IAddOnPostResponse::class) {
-                    $this->addFilterPostResponse($metabox);
+                    $this->addFilterPostResponse($instance);
                 }
             }
         }

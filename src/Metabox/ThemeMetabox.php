@@ -2,9 +2,10 @@
 
 namespace ofernandoavila\SpaceshipPlugin\Metabox;
 
+use ofernandoavila\SpaceshipPlugin\Interface\IAddOnPostResponse;
 use ofernandoavila\SpaceshipPlugin\Service\ThemeService;
 
-class ThemeMetabox extends Metabox {
+class ThemeMetabox extends Metabox implements IAddOnPostResponse {
 
     public function __construct()
     {
@@ -55,5 +56,15 @@ class ThemeMetabox extends Metabox {
         if (isset($_POST['spaceship_plugin_value'])) {
             update_post_meta($post_id, 'ssp_theme', sanitize_text_field($_POST['spaceship_plugin_value']));
         }
+    }
+
+    public function addToPostResponse($response, $post, $context) : mixed {
+        $themeService = new ThemeService();
+
+        $theme = get_post_meta($post->ID, 'ssp_theme', true);
+        if ($theme) {
+            $response->data['theme'] = $themeService->getThemeById(intval($theme));
+        }
+        return $response;
     }
 }
