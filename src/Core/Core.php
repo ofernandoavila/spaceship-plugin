@@ -19,7 +19,7 @@ class Core {
         add_action('rest_api_init', fn() => $this->register_api_routes());
         add_action('admin_menu', fn() => $this->addMenuPage());
         add_action( 'init', fn() => $this->registerMenus());
-        add_action('admin_enqueue_scripts', fn() => $this->loadAssets());
+        add_action('admin_enqueue_scripts', fn($hook) => $this->loadAssets($hook));
 
         $this->installMetaboxes();
     }
@@ -82,7 +82,7 @@ class Core {
         $router->publish();
     }
 
-    public function loadAssets() {
+    public function loadAssets($hook) {
         $file_js = "main.js";
 
         $this->__replaceEnvironmentsVariables($file_js);
