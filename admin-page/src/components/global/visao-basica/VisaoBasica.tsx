@@ -21,6 +21,7 @@ export default function VisaoBasica({ children, menuAtivo }: IVisaoBasicaProps) 
                     </div>
                     <ul className="menu-nav">
                         <li onClick={() => navigate('/')} className={ menuAtivo ? menuAtivo === 'Themes' ? 'ativo' : '' : '' }>Themes</li>
+                        <li onClick={() => navigate('/reactions')} className={ menuAtivo ? menuAtivo === 'Reactions' ? 'ativo' : '' : '' }>Reactions</li>
                         <li onClick={() => navigate('/colors')} className={ menuAtivo ? menuAtivo === 'Colors' ? 'ativo' : '' : '' }>Colors</li>
                     </ul>
                 </div>
