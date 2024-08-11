@@ -17,7 +17,7 @@ class DificuldadeMetabox extends Metabox implements IAddOnPostResponse {
     public function OnCreateMetaboxField($post) {
         // To-Do: Implement on create metabox field
         $selected_theme = get_post_meta($post->ID, $this->metaboxId, true);
-        echo '<input type="hidden" name="' . $this->valueId . '" id="' . $this->valueId . '" value="' . $selected_theme .'" />';
+        echo '<input type="text" name="' . $this->valueId . '" id="' . $this->valueId . '" value="' . $selected_theme .'" />';
     }
 
     public function OnSaveMetabox($post_id) {
