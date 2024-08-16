@@ -1,49 +1,15 @@
 import { Theme, ThemeCreateDTO, ThemeEditDTO } from "../models/Theme";
+import APIClient from "./APIClient";
 
 interface IAPIResponseMesage {
     msg: string;
 }
 
-class ThemeAPI {
-    private __baseURL: string;
-
-    constructor() {
-        this.__baseURL = process.env.REACT_APP_BASE_URL! + process.env.REACT_APP_SPACESHIP_URL!;
-    }
-
-    getThemes = () => new Promise<Theme[]>((resolve, reject) => {
-        fetch(this.__baseURL + '/themes', {
-            method: 'GET'
-        }).then( res => res.json())
-            .then( data => resolve(data as Theme[]))
-            .catch( error => reject(error) );
-    });
-    
-    createTheme = (theme: ThemeCreateDTO) => new Promise<Theme>((resolve, reject) => {
-        fetch(this.__baseURL + '/themes', {
-            method: 'POST',
-            body: JSON.stringify(theme)
-        }).then( res => res.json())
-            .then( data => resolve(data as Theme))
-            .catch( error => reject(error) );
-    });
-    
-    editTheme = (theme: ThemeEditDTO) => new Promise<IAPIResponseMesage>((resolve, reject) => {
-        fetch(this.__baseURL + '/themes', {
-            method: 'PATCH',
-            body: JSON.stringify(theme)
-        }).then( res => res.json())
-            .then( data => resolve(data as IAPIResponseMesage))
-            .catch( error => reject(error) );
-    });
-
-    deleteTheme = (id: number) => new Promise<IAPIResponseMesage>((resolve, reject) => {
-        fetch(this.__baseURL + '/themes/' + id.toString(), {
-            method: 'DELETE'
-        }).then( res => res.json())
-            .then( data => resolve(data as IAPIResponseMesage))
-            .catch( error => reject(error) );
-    });
+class ThemeAPI extends APIClient {
+    getThemes = () => this.get<Theme[]>('/themes');
+    createTheme = (theme: ThemeCreateDTO) => this.post<Theme>('/themes', theme);
+    editTheme = (theme: ThemeEditDTO) => this.patch<IAPIResponseMesage>('/themes', theme);
+    deleteTheme = (id: number) => this.delete<IAPIResponseMesage>(`/themes/${id}`);
 }
 
 export default ThemeAPI;

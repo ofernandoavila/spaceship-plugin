@@ -28,11 +28,6 @@ class ThemeRepository extends Repository
         return $this->executeQuery($sql);
     }
 
-    public function uninstall()
-    {
-        return $this->executeQuery("drop table $this->table_name");
-    }
-
     public function getThemes()
     {
         return $this->getContent("SELECT * FROM $this->table_name;");

@@ -2,10 +2,15 @@
 
 namespace ofernandoavila\SpaceshipPlugin\Repository;
 
-use ofernandoavila\SpaceshipPlugin\Model\Model;
+use ofernandoavila\SpaceshipPlugin\Interface\IRepository;
 
-class Repository {
+class Repository implements IRepository {
     public string $table_name;
+
+    public function uninstall()
+    {
+        return $this->executeQuery("drop table $this->table_name");
+    }
 
     public function executeQuery(string $query) {
         global $wpdb;

@@ -6,6 +6,7 @@ use ofernandoavila\SpaceshipPlugin\Model\Color;
 use ofernandoavila\SpaceshipPlugin\Repository\ColorRepository;
 
 class ColorService extends Service {
+    
     public ColorRepository $repository;
 
     public function __construct()
@@ -13,14 +14,14 @@ class ColorService extends Service {
         $this->repository = new ColorRepository();
     }
 
-    public function install() {
-        return $this->repository->install();
-    }
-    
     public function uninstall() {
         return $this->repository->uninstall();
     }
 
+    public function install() {
+        return $this->repository->install();
+    }
+    
     public function getColors() {
         $data = $this->repository->getColors();
         $colors = [];

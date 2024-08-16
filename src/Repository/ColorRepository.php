@@ -2,6 +2,7 @@
 
 namespace ofernandoavila\SpaceshipPlugin\Repository;
 
+use ofernandoavila\SpaceshipPlugin\Interface\IRepository;
 use ofernandoavila\SpaceshipPlugin\Model\Color;
 
 class ColorRepository extends Repository {
@@ -36,10 +37,6 @@ class ColorRepository extends Repository {
         $sql .=                               "('Gold', '#ffc225');";
 
         return $this->executeQuery($sql);
-    }
-
-    public function uninstall() {
-        return $this->executeQuery("drop table wp_spaceship_colors");
     }
 
     public function getColorById(int $id) : object | null {

@@ -17,6 +17,13 @@ class Config {
             ThemeService::class,
         ];
     }
+
+    public static function GetServicesUninstall() {
+        return [
+            ThemeService::class,
+            ColorService::class,
+        ];
+    }
     
     public static function GetMetaboxes() {
         return [

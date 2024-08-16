@@ -12,4 +12,4 @@ require_once plugin_dir_path(__FILE__) . 'vendor/autoload.php';
 
 $core = new Core();
 
-$core->init();
+$core->init(__FILE__);

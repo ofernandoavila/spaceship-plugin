@@ -6,12 +6,11 @@ use ofernandoavila\SpaceshipPlugin\Command\Command;
 use ofernandoavila\SpaceshipPlugin\Controller\ColorController;
 use ofernandoavila\SpaceshipPlugin\Controller\ThemeController;
 use ofernandoavila\SpaceshipPlugin\Interface\IAddOnPostResponse;
-use ofernandoavila\SpaceshipPlugin\Service\ColorService;
-use ofernandoavila\SpaceshipPlugin\Service\ThemeService;
 use WP_REST_Request;
 use WP_REST_Response;
 
 class Core {
+    #region Command
     // trigger function arguments
     public function cli($arguments) {
         $arguments = $this->extractCommand($arguments);
@@ -89,17 +88,19 @@ class Core {
         return $command;
     }
 
-    public function init() {
-        register_activation_hook(__FILE__, fn() => $this->install());
-        register_deactivation_hook(__FILE__, fn() => $this->uninstall());
+    #endregion
+
+    public function init($path) {
+        register_activation_hook($path, fn() => $this->install());
+        register_deactivation_hook($path, fn() => $this->uninstall());
         
-        
-        add_action('rest_api_init', fn() => $this->register_api_routes());
+        add_action('rest_api_init', fn() => $this->register_api_routes() );
         add_action('admin_menu', fn() => $this->addMenuPage());
         add_action( 'init', fn() => $this->registerMenus());
         add_action('admin_enqueue_scripts', fn($hook) => $this->loadAssets($hook));
 
         $this->installMetaboxes();
+        
     }
 
     public function install() {
@@ -112,7 +113,7 @@ class Core {
     }
     
     public static function uninstall() {
-        $services = Config::GetServices();
+        $services = Config::GetServicesUninstall();
 
         foreach($services as $service) {
             $instance = new $service();
@@ -135,6 +136,8 @@ class Core {
         
         $router->register_route('/themes', 'GET', function (WP_REST_Request $request) {
             $controller = new ThemeController();
+
+            return ['teste' => 'teste123'];
 
             return $controller->GetAllThemes($request);
         });
